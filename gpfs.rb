@@ -76,7 +76,11 @@ class GPFS
   end
 
   def load_quota_data(filesystem)
-    File.open(self.class.quota_input(filesystem), 'r') do |f|
+    path = self.class.quota_input(filesystem)
+    if ! File.exist?(path)
+      return {}
+    end
+    File.open(path, 'r') do |f|
       data = JSON.load(f)
     end
   end
@@ -107,14 +111,14 @@ class GPFS
 
   def fileset_quota(fileset)
     @quota_data ||= load_quota_data(@filesystem)
-    @fileset_quota = parse_fileset_quota(fileset, @quota_data['quotas_other'])
+    @fileset_quota = parse_fileset_quota(fileset, @quota_data.fetch('quotas_other', []))
     @fileset_quota
   end
 
   def user_quotas(fileset)
     @quota_data ||= load_quota_data(@filesystem)
     @fileset_quota ||= fileset_quota(fileset)
-    @user_quotas = parse_user_quotas(fileset, @fileset_quota, @quota_data['quotas'])
+    @user_quotas = parse_user_quotas(fileset, @fileset_quota, @quota_data.fetch('quotas', []))
     @user_quotas
   end
 
