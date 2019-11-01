@@ -33,11 +33,11 @@ class GPFS
     File.dirname(__FILE__)
   end
 
-  def self.fileset_input
+  def self.fileset_input(filesystem)
     if ! Sinatra::Base.production?
-      File.join(self.proj_dir, 'test/fixtures/gpfs_filesets.yaml')
+      File.join(self.proj_dir, "test/fixtures/#{filesystem}_filesets.yaml")      
     else
-      File.join('/users/sysp/tdockendorf', 'git/osc-puppetmaster-conf', 'data/data/gpfs_filesets.yaml')
+      "/users/reporting/storage/data/#{filesystem}_filesets.yaml"
     end    
   end
 
@@ -57,13 +57,14 @@ class GPFS
 
   def initialize(filesystem)
     @filesystem = filesystem
-    @fileset_data = load_fileset_data
+    @fileset_data = load_fileset_data(filesystem)
     @filesets = parse_filesets(@fileset_data, filesystem)
   end
 
-  def load_fileset_data
-    File.open(self.class.fileset_input, 'r') do |f|
-      if File.extname(self.class.fileset_input) == '.marshall'
+  def load_fileset_data(filesystem)
+    path = self.class.fileset_input(filesystem)
+    File.open(path, 'r') do |f|
+      if path == '.marshall'
         data = Marshal.load(f)
       else
         data = YAML.load(f)
@@ -78,10 +79,9 @@ class GPFS
   end
 
   def parse_filesets(data, filesystem)
-    logger.info("DEBUG=#{self.class.static_filesets.key?(filesystem)}")
     return self.class.static_filesets[filesystem] if self.class.static_filesets.key?(filesystem)
     filesets = {}
-    data.fetch("gpfs_#{filesystem}_filesets", {}).each_pair do |name, d|
+    data.each_pair do |name, d|
       owner = d['owner'].split(':')
       path = File.join('/fs', filesystem, name)
       user = owner[0]

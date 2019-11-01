@@ -99,7 +99,6 @@ class App < Sinatra::Base
   # Define a route at the root '/' of the app.
   get '/' do
     @filesystems = GPFS.filesystems
-    @fileset_input = GPFS.fileset_input
 
     # Render the view
     erb :index
