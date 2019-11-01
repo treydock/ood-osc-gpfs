@@ -63,6 +63,9 @@ class GPFS
 
   def load_fileset_data(filesystem)
     path = self.class.fileset_input(filesystem)
+    if ! File.exist?(path)
+      return {}
+    end
     File.open(path, 'r') do |f|
       if path == '.marshall'
         data = Marshal.load(f)
