@@ -1,0 +1,5 @@
+# Keep tmp/ but ignore files underneath
+._*
+/tmp/*
+!/tmp/.keep
+/vendor/bundle

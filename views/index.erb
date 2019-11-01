@@ -1,0 +1,17 @@
+<h1><%= title %></h1>
+
+<pre>
+  <%= @fileset_input %>
+</pre>
+
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <th>Filesystem</th>
+  </tr>
+  <% @filesystems.each do |filesystem| %>
+  <tr>
+    <td><a href="<%= url("/#{filesystem}") %>"><%= filesystem %></a></td>
+  </tr>
+  <% end %>
+
+</table>

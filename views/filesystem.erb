@@ -1,0 +1,25 @@
+<%== breadcrumbs %>
+
+<h1>GPFS filesystem <%= @filesystem %></h1>
+<hr/>
+
+<table id="filesystems" class="table table-bordered table-striped table-hover">
+  <thead>
+    <th>Name</th>
+    <th>User</th>
+    <th>Group</th>
+    <th>Block Limit</th>
+    <th>Files Limit</th>
+  </thead>
+  <tbody>
+    <% @filesets.each_pair do |name, fileset| %>
+    <tr>
+      <td><a href="<%= url("/#{@filesystem}/#{name}") %>"><%= name %></a></td>
+      <td><%= fileset.user %></td>
+      <td><%= fileset.group %></td>
+      <td><%= pretty(fileset.block_limit) %></td>
+      <td><%= pretty(fileset.file_limit) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

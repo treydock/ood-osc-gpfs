@@ -1,0 +1,4 @@
+name: OSC GPFS Allocations
+description: Display OSC GPFS Allocations in a table
+category: files
+subcategory: Utilities

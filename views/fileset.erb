@@ -1,0 +1,53 @@
+<%== breadcrumbs %>
+
+<h1>Data for <%= @fileset %></h1>
+
+<hr/>
+
+<h2>Fileset usage</h2>
+
+<table id="fileset" class="table table-bordered">
+  <thead>
+    <th>Block Usage</th>
+    <th>Block Percent Used</th>
+    <th>Block Limit</th>
+    <th>File Usage</th>
+    <th>File Percent Used</th>
+    <th>File Limit</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= pretty(@fileset_quota.block_usage) %></td>
+      <td><%= pretty(@fileset_quota.block_percent_used) %></td>
+      <td><%= pretty(@fileset_quota.block_limit) %></td>
+      <td><%= pretty(@fileset_quota.file_usage) %></td>
+      <td><%= pretty(@fileset_quota.file_percent_used) %></td>
+      <td><%= pretty(@fileset_quota.file_limit) %></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr/>
+
+<h2>Fileset usage by user</h2>
+
+<table id="user-quotas" class="table table-bordered table-striped table-hover">
+  <thead>
+    <th>Username</th>
+    <th>Block Usage</th>
+    <th>Block Percent Used</th>
+    <th>File Usage</th>
+    <th>File Percent Used</th>
+  </thead>
+  <tbody>
+    <% @user_quotas.each do |q| %>
+    <tr>
+      <td><%= q.username %></td>
+      <td><%= pretty(q.block_usage) %></td>
+      <td><%= pretty(q.block_percent_used) %></td>
+      <td><%= pretty(q.file_usage) %></td>
+      <td><%= pretty(q.file_percent_used) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
