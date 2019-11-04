@@ -33,7 +33,7 @@ class App < Sinatra::Base
     end
 
     def title
-      "OSC GPFS Allocations"
+      "OSC GPFS"
     end
 
     def pretty(value)
