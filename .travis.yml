@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+  - 2.5
+  - 2.6
+install:
+  - rake build
+script:
+  - bundle exec rake spec
+
