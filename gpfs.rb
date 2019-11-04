@@ -35,7 +35,7 @@ class GPFS
 
   def self.fileset_input(filesystem)
     if ! Sinatra::Base.production?
-      File.join(self.proj_dir, "test/fixtures/#{filesystem}_filesets.yaml")      
+      File.join(self.proj_dir, "spec/fixtures/#{filesystem}_filesets.yaml")      
     else
       "/users/reporting/storage/data/#{filesystem}_filesets.yaml"
     end    
@@ -43,7 +43,7 @@ class GPFS
 
   def self.quota_input(filesystem)
     if ! Sinatra::Base.production?
-      File.join(self.proj_dir, "test/fixtures/gpfs.#{filesystem}_quota.json")
+      File.join(self.proj_dir, "spec/fixtures/gpfs.#{filesystem}_quota.json")
     else
       "/users/reporting/storage/quota/gpfs.#{filesystem}_quota.json"
     end
