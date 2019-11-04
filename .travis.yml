@@ -6,4 +6,6 @@ install:
   - rake build
 script:
   - bundle exec rake spec
+notifications:
+  email: tdockendorf@osc.edu
 
