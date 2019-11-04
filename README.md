@@ -1,4 +1,4 @@
-# ood-example-ps
+# ood-osc-gpfs
 
-Example Open OnDemand app that displays the output of `ps`
+Open OnDemand app to show OSC GPFS allocations and quota usage
 
