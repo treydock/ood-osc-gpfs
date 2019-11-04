@@ -147,7 +147,6 @@ class GPFS
       else
         file_percent = ( file_usage.to_f / file_limit.to_f ) * 100.0
       end
-      #logger.info("Fileset=#{fileset_name} Filelimit=#{file_limit} FileUsage=#{file_usage} Percet=#{file_percent}")
       quota = FilesetQuota.new(name, block_usage, block_limit, block_percent, file_usage, file_limit, file_percent)
       return quota
     end
@@ -181,7 +180,6 @@ class GPFS
       else
         file_percent = ( file_usage.to_f / file_limit.to_f ) * 100.0
       end
-      #logger.info("Fileset=#{fileset_name} Filelimit=#{file_limit} FileUsage=#{file_usage} Percet=#{file_percent}")
       quota = UserQuota.new(username, block_usage, block_percent, file_usage, file_percent)
       quotas << quota
     end

@@ -49,7 +49,6 @@ class App < Sinatra::Base
 
     def request_path_parent(path)
       path_parts = path.split('/')[0...-1]
-      #logger.info("DEBUG=#{path_parts}")
       path_parts.join('/')
     end
 
@@ -59,8 +58,6 @@ class App < Sinatra::Base
       html = '<ol class="breadcrumb">'
       html = ["<li class=\"breadcrumb-item active\" aria-current=\"page\">#{page}</li>"]
       path = request_path_parent(path)
-      #logger.info("PATH=#{path}")
-      #return 'html'
       while path != '' do
         logger.info("PATH=#{path}")
         page = path.split('/')[-1]
@@ -73,34 +70,12 @@ class App < Sinatra::Base
       html.prepend '<ol class="breadcrumb">'
       html.append "</ol>"
       return html.join("\n")
-=begin
-      path_parts = path.split('/')
-      path_parts.each_with_index do |p,i|
-        if (i+1) == path_parts.size
-          active = 'active'
-          current = 'aria-current="page"'
-          link = p
-        else
-          active = ''
-          current = ''
-          p_path_prefix = path.split(p)[1...-1]
-          p_path = "#{p_path_prefix.join('/')}/#{p}"
-          link = "<a href=\"#{url(p_path)}\">#{p}</a>"
-        end
-        h = "<li class=\"breadcrumb-item #{active}\" #{current}>#{link}</li>"
-        html = html + h
-      end
-      html = html + "</ol>"
-      html
-=end
     end
   end
 
-  # Define a route at the root '/' of the app.
   get '/' do
     @filesystems = GPFS.filesystems
 
-    # Render the view
     erb :index
   end
 
@@ -118,7 +93,6 @@ class App < Sinatra::Base
 
     @gpfs = GPFS.new(@filesystem)
     @fileset_quota = @gpfs.fileset_quota(@fileset)
-    logger.info("fileset=#{@fileset} quota=#{@fileset_quota}")
     @user_quotas = @gpfs.user_quotas(@fileset)
 
     erb :fileset
